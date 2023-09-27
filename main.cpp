@@ -1,70 +1,82 @@
 #include <iostream>
-#include <string>
+#include <list>
 #include <vector>
 
+using namespace std;
+
 class Animal {
-public:
-    Animal(const std::string& name, const std::string& species)
-        : name_(name), species_(species) {
-        numOfAnimals++;
-    }
-
-    static int numOfAnimals;
-
-    std::string getName() const {
-        return name_;
-    }
-
-    std::string getSpecies() const {
-        return species_;
-    }
-
 private:
-    std::string name_;
-    std::string species_;
-};
+    string name = "";
+    string species = "";
+    inline static int numOfAnimals = 0;
 
-int Animal::numOfAnimals = 0;
+public:
+     Animal(string theName, string theSpecies) {
+       name = theName;
+       species = theSpecies;
+       // increment numOfAnimals
+       numOfAnimals++;
+    }
+     string getAnimalName() {
+        return name;
+    }
+
+    string getAnimalSpecies() {
+        return species;
+    }
+
+    int getNumOfAnimals() {
+        return numOfAnimals;
+    }
+};
 
 class Hyena : public Animal {
 public:
-    Hyena(const std::string& name)
-        : Animal(name, "Hyena") {}
+    // This is a constructor!
+    Hyena(string theName, string theSpecies):Animal(theName, theName) {
+        name = theName;
 
-    static std::vector<std::string> hyenaNames;
-
-    static std::string assignName() {
-        if (hyenaNames.empty()) {
-            return "No more hyena names available";
-        }
-
-        std::string name = hyenaNames.back();
-        hyenaNames.pop_back();
-        return name;
-    }
-};
-
-std::vector<std::string> Hyena::hyenaNames = {
-    "Shenzi", "Banzai", "Ed", "Zig", "Bud",
-    "Lou", "Kamari", "Wema", "Nne", "Madoa",
-    "Prince Nevarah"
-};
-
-int main() {
-    // Creating Animal objects
-    Animal lion("Simba", "Lion");
-    Animal elephant("Dumbo", "Elephant");
-
-    // Accessing and displaying the number of animals
-    std::cout << "Number of animals created: " << Animal::numOfAnimals << std::endl;
-
-    // Creating Hyena objects and assigning names
-    for (int i = 0; i < 5; i++) {
-        std::cout << "Hyena assigned name: " << Hyena::assignName() << std::endl;
     }
 
-    // Accessing and displaying the remaining number of hyena names
-    std::cout << "Remaining hyena names: " << Hyena::hyenaNames.size() << std::endl;
+
+};
+
+
+
+
+int main()
+{
+    Hyena myNewHyena;
+
+
+    cout << "\n Welcome to my Midterm Check In !! \n" << endl;
+
+    cout << " \n\nBefore creating a couple animals, num of animals is " << Animal::getNumOfAnimals << "\n\n";
+
+
+    // Create an animal object.
+    Animal myNewAnimal01("I expect a NAME", "and Species");
+    // Create another animal object
+    Animal animalTwo("This is Animal Two", "Hyena");
+
+// animalTwo.numOfAnimals = 222;
+
+    cout << " \n\nafter creating a couple animals, numOfAimals is " << Animal::getNumOfAnimals << "\n\n";
+
+    // Examine the public members.
+    // this will not work!
+    // myNewAnimal01.name = "Name One";
+    // myNewAnimal01.species = "Hyena";
+
+    cout << " The name of this animal is: " << myNewAnimal01.getAnimalName() << endl;
+    cout << " The species is: " << myNewAnimal01.getAnimalSpecies() << endl;
+
+    cout << " The name of this animal is: " << animalTwo.getAnimalName() << endl;
+    cout << " The species is: " << animalTwo.getAnimalSpecies() << endl;
+
+    // Animal::numOfAnimals+=5;
+
+    cout << " \n\nNum of animals is: " << Animal::getNumOfAnimals << "\n\n";
 
     return 0;
 }
